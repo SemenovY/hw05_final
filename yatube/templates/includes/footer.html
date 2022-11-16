@@ -1,0 +1,7 @@
+<footer class="border-top text-center py-3">
+    <a class="nav-link {% if view_name  == 'about:author' %}active{% endif %}" 
+    href="{% url 'about:author' %}"><i>Об авторе сайта</i></a>
+    <a class="nav-link {% if view_name  == 'about:tech' %}active{% endif %}"
+    href="{% url 'about:tech' %}"><i>Технологии</i></a>
+  <p>© {{ year }} Социальная сеть <span style="color:red">Ya</span>tube</p>
+</footer>
