@@ -22,6 +22,10 @@ class Group(models.Model):
         help_text='Укажите описание группы',
     )
 
+    class Meta:
+        verbose_name = 'группу'
+        verbose_name_plural = 'Группы'
+
     def __str__(self):
         return self.title
 
@@ -57,13 +61,13 @@ class Post(models.Model):
         help_text='Добавьте каринку к посту',
     )
 
-    def __str__(self):
-        return self.text[: settings.LEN_TEXT_STR]
-
     class Meta:
         ordering = ('-pub_date',)
-        verbose_name = 'Пост'
+        verbose_name = 'пост'
         verbose_name_plural = 'Посты'
+
+    def __str__(self):
+        return self.text[: settings.LEN_TEXT_STR]
 
 
 class Comment(CreatedModel):
@@ -85,13 +89,13 @@ class Comment(CreatedModel):
         help_text='Введите текст комментария',
     )
 
-    def __str__(self):
-        return self.text
-
     class Meta:
         ordering = ('-created',)
-        verbose_name = 'Комментарий'
+        verbose_name = 'комментарий'
         verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return self.text
 
 
 class Follow(models.Model):
@@ -107,6 +111,10 @@ class Follow(models.Model):
         related_name='following',
         verbose_name='Автор',
     )
+
+    class Meta:
+        verbose_name = 'подписчика'
+        verbose_name_plural = 'Подписки'
 
     def __str__(self):
         return self.user
