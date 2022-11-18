@@ -12,7 +12,7 @@ User = get_user_model()
 
 @cache_page(20, key_prefix="index_page")
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.select_related()
     page_obj = get_page_obj(posts, request)
     context = {
         'page_obj': page_obj,
