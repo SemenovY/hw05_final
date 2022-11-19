@@ -12,7 +12,7 @@ User = get_user_model()
 
 @cache_page(20, key_prefix="index_page")
 def index(request):
-    posts = Post.objects.select_related()
+    posts = Post.objects.select_related('author', 'group')
     page_obj = get_page_obj(posts, request)
     context = {
         'page_obj': page_obj,
@@ -33,7 +33,10 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    following = Follow.objects.filter(author=author)
+    following = (
+        author.following.filter(user_id=request.user.id).exists()
+        and request.user.is_authenticated
+    )
     posts = author.posts.all()
     page_obj = get_page_obj(posts, request)
     context = {
@@ -72,20 +75,20 @@ def post_create(request):
 @login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    if post.author == request.user:
-        form = PostForm(
-            request.POST or None, files=request.FILES or None, instance=post
-        )
-        if form.is_valid():
-            post = form.save()
-            return redirect('posts:post_detail', post.id)
-        context = {
-            'form': form,
-            'is_edit': True,
-            'post': post,
-        }
-        return render(request, "posts/create_post.html", context)
-    return redirect('posts:post_detail', post_id)
+    if post.author != request.user:
+        return redirect('posts:index', post_id=post_id)
+    form = PostForm(
+        request.POST or None, files=request.FILES or None, instance=post
+    )
+    if form.is_valid():
+        post = form.save()
+        return redirect('posts:post_detail', post.id)
+    context = {
+        'form': form,
+        'is_edit': True,
+        'post': post,
+    }
+    return render(request, "posts/create_post.html", context)
 
 
 @login_required
