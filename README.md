@@ -49,7 +49,7 @@ python3 manage.py runserver
 
 * Python 3.7
 * Django 2.2.16
-
+```
 _____________
 ***Над проектом работал:***
 * Семёнов Юрий | GitHub: [SemenovY](https://github.com/SemenovY) | Python developer.
