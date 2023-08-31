@@ -4,6 +4,12 @@
 ________
 # Социальная сеть для публикации личных дневников
 
+## Технологии
+* Python
+* Django
+* Pillow
+* pytest
+
 ### Описание
 После регистрации пользователь может создавать посты, подписываться на авторов
 и комментировать их записи.
@@ -46,7 +52,7 @@ python3 manage.py runserver
 
 _____________
 ***Над проектом работал:***
-* Семёнов Юрий | GitHub: [SemenovY](https://github.com/SemenovY)| Python developer.
+* Семёнов Юрий | GitHub: [SemenovY](https://github.com/SemenovY) | Python developer.
 
 ### *Free Software, Not for commercial use!*
 ### =^..^=______/
